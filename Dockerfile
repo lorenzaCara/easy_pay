@@ -37,4 +37,4 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/
 EXPOSE 80
 
 # Comando di avvio
-CMD ["apache2-foreground"]
+CMD ["/var/www/html/start.sh"]
