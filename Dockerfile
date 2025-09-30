@@ -1,27 +1,42 @@
+```dockerfile
+# Usa PHP 8.2 con Apache come base
 FROM php:8.2-apache
 
-# Installa estensioni necessarie
+# Installa dipendenze di sistema e librerie utili per Laravel
 RUN apt-get update && apt-get install -y \
-    unzip libpng-dev libonig-dev libxml2-dev zip curl git \
+    unzip \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Installa Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Abilita mod_rewrite per Apache (necessario per le route Laravel)
+RUN a2enmod rewrite
 
-# Copia i file del progetto
-COPY . /var/www/html
-
-# Imposta working dir
+# Imposta la cartella di lavoro
 WORKDIR /var/www/html
 
-# Installa dipendenze Laravel
+# Copia composer dal container ufficiale
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copia tutto il progetto nel container
+COPY . /var/www/html
+
+# Installa le dipendenze di Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Setta i permessi per storage e cache
+# Imposta i permessi corretti per storage e cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Porta esposta
+# Configura Apache per puntare alla cartella public
+RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
+# Espone la porta
 EXPOSE 80
 
 # Comando di avvio
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
+CMD ["apache2-foreground"]
+```

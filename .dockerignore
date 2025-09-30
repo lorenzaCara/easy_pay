@@ -1,0 +1,34 @@
+```
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Composer
+/vendor
+composer.lock
+
+# Cache di Laravel
+/storage/*.key
+/storage/debugbar
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+# IDE e editor
+/.idea
+/.vscode
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Altri file inutili
+.env
+.env.*
+.DS_Store
+```
