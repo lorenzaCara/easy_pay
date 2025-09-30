@@ -38,4 +38,3 @@ EXPOSE 80
 
 # Comando di avvio
 CMD ["apache2-foreground"]
-```
