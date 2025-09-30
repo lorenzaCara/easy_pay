@@ -48,7 +48,7 @@
                                         <td class="px-4 py-2 border-b">{{ $participant->name }}</td>
                                         <td class="px-4 py-2 border-b">€ {{ number_format($participant->pivot->share_amount, 2, ',', '.') }}</td>
                                         <td class="px-4 py-2 border-b">
-                                            <span class="px-2 py-1 rounded-full text-xs font-semibold
+                                            <span class="px-2 py-1 rounded-full text-xs font-medium
                                                 {{ $participant->pivot->status === 'paid' 
                                                     ? 'bg-green-100 text-green-700'
                                                     : 'bg-red-100 text-red-700' }}">
