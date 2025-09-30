@@ -1,4 +1,3 @@
-```dockerfile
 # Usa PHP 8.2 con Apache come base
 FROM php:8.2-apache
 
